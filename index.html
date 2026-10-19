@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101923">
+  <meta name="description" content="Křížovky ze světa včel, slepic, her, dílny, práce a dalších témat. Funguje i offline.">
+  <title>Křížovkář · Tvoje křížovky</title>
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <link rel="apple-touch-icon" href="./icon.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark" aria-hidden="true"><span>+</span><span>+</span><span>+</span><span>+</span></div>
+      <div><div class="brand-title">Křížovkář<span class="title-dot">.</span></div><div class="brand-caption">Každý den nová výzva</div></div>
+    </div>
+    <div class="head-actions">
+      <button id="themeBtn" class="btn icon-btn" aria-label="Změnit vzhled" title="Světlý / tmavý vzhled"><span id="themeIcon">☼</span></button>
+      <button id="aboutBtn" class="btn icon-btn" aria-label="Jak hrát" title="Jak hrát">?</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="intro">
+      <div><div class="eyebrow"><span class="eyebrow-dot"></span> OSOBNÍ KŘÍŽOVKY</div>
+        <h1>Procvič si hlavu.<br><span>Po svém.</span></h1>
+        <p>Otázky z témat, která tě baví. Vygeneruj si pokaždé jinou křížovku a lušti přímo na telefonu.</p>
+      </div>
+      <div class="intro-pattern" aria-hidden="true"><span>V</span><span>Č</span><span>E</span><span>L</span><span>Y</span><span>★</span><span>+</span><span>H</span><span>R</span></div>
+    </div>
+
+    <section class="setup card" aria-label="Nastavení křížovky">
+      <div class="field"><label for="category">TÉMA KŘÍŽOVKY</label><div class="select-wrap"><select id="category"></select><span class="select-arrow">⌄</span></div><div id="categoryDescription" class="field-helper"></div></div>
+      <div class="field"><label for="difficulty">OBTÍŽNOST</label><div class="segments" role="group" aria-label="Obtížnost">
+        <button class="segment" data-difficulty="1" type="button">Lehká</button><button class="segment" data-difficulty="2" type="button">Střední</button><button class="segment" data-difficulty="3" type="button">Těžká</button>
+      </div><div class="field-helper">Odpovědi se píšou bez háčků a čárek.</div></div>
+      <div class="generate"><button id="newBtn" class="btn btn-primary" type="button"><span>✳</span> Nová křížovka <span>→</span></button></div>
+    </section>
+
+    <section id="gameSection" class="game">
+      <div class="game-heading"><div><div class="eyebrow subtle">PRÁVĚ LUŠTÍŠ</div><h2 id="puzzleTitle">Tvoje křížovka</h2></div><div class="puzzle-status"><span class="status-dot"></span><span id="statusLabel">Rozluštěno 0 %</span></div></div>
+      <div class="stats"><div class="stat"><span class="stat-label">VYPLNĚNO</span><strong id="fillStat">0 / 0</strong></div><div class="stat"><span class="stat-label">ČAS</span><strong id="timerStat">00:00</strong></div><div class="stat"><span class="stat-label">NÁPOVĚDY</span><strong id="hintStat">0</strong></div></div>
+      <div class="progress"><div id="progressFill" class="progress-fill"></div></div>
+
+      <div class="game-grid">
+        <section class="board-card card" aria-label="Křížovka">
+          <div class="section-top"><div><span class="section-tag">HRACÍ POLE</span><h3 id="boardTitle">Vylušti všechna políčka</h3></div><span id="sizeLabel" class="mini-tag">—</span></div>
+          <div id="activeClue" class="active-clue" aria-live="polite">Vyber políčko nebo otázku.</div>
+          <div id="scrollNote" class="scroll-note" hidden>↔ Posuň mřížku prstem do strany</div>
+          <div id="boardScroller" class="board-scroller" tabindex="0" aria-label="Posuvná křížovka"><div id="board" class="board" role="group" aria-label="Políčka křížovky"></div></div>
+          <section id="tajenkaPanel" class="tajenka-panel" aria-label="Tajenka">
+            <div class="tajenka-heading"><div><span class="section-tag">SKRYTÁ TAJENKA</span><h3>Co ukrývají očíslovaná políčka?</h3></div><span id="tajenkaCount" class="mini-tag">0 / 0 písmen</span></div>
+            <div id="tajenkaSlots" class="tajenka-slots" aria-live="polite"></div>
+            <p id="tajenkaResult" class="tajenka-result" hidden></p>
+            <p class="tajenka-help">Čísla v zelených políčkách určují pořadí písmen tajenky. Správná písmena se tu sama odkrývají; klepnutím na znak přejdeš na políčko.</p>
+          </section>
+          <div class="board-actions"><button id="checkBtn" class="btn btn-secondary" type="button">✓ Zkontrolovat</button><button id="hintBtn" class="btn btn-ghost" type="button">✦ Odhalit písmeno</button></div>
+          <p class="board-footnote">Klepnutím na stejné políčko změníš směr. Posuň křížovku prstem, pokud se nevejde na obrazovku.</p>
+          <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+        </section>
+
+        <section class="clues-card card" aria-label="Otázky ke křížovce">
+          <div class="section-top"><div><span class="section-tag">OTÁZKY</span><h3>Nápovědy k luštění</h3></div><span id="wordCount" class="mini-tag">— slov</span></div>
+          <div class="clue-group"><div class="clue-header"><span class="dir-icon">→</span><h4>Vodorovně</h4><span id="acrossCount" class="clue-count"></span></div><div id="acrossClues" class="clue-list"></div></div>
+          <div class="clue-group"><div class="clue-header"><span class="dir-icon">↓</span><h4>Svisle</h4><span id="downCount" class="clue-count"></span></div><div id="downClues" class="clue-list"></div></div>
+        </section>
+      </div>
+    </section>
+
+    <footer>Vytvořeno pro zábavu a procvičení znalostí. Bez účtu, reklam a odesílání dat.</footer>
+  </main>
+</div>
+<dialog id="aboutDialog" class="dialog"><div class="modal"><button id="closeDialog" class="modal-close" aria-label="Zavřít">×</button><div class="section-tag">JAK HRÁT</div><h2>Jednoduše začni psát</h2>
+  <p>Vyber téma a obtížnost, potom klepni na <strong>Nová křížovka</strong>. Přepínej otázky klepnutím na jejich řádek nebo na políčka. Na křížení druhým klepnutím změníš směr.</p>
+  <p>Piš bez diakritiky (například <strong>VCELA</strong>). Aplikace zvládne i zadání s háčky a čárkami. Tlačítkem <strong>Zkontrolovat</strong> označíš chybné odpovědi. Nápověda odhalí jedno správné písmeno.</p>
+  <p><strong>Tajenka:</strong> Zeleně označená políčka mají vlastní malá čísla. Ta určují pořadí písmen v tajence pod mřížkou. Po správném napsání písmene se samo odhalí. Klepnutím na pozici v tajence najdeš příslušné políčko.</p>
+  <p>Rozluštěná křížovka se automaticky ukládá jen v tomto prohlížeči. Aplikaci můžeš přidat na plochu iPhonu přes Sdílet → Přidat na plochu.</p>
+  <button id="dialogOk" class="btn btn-primary dialog-ok">Rozumím</button></div></dialog>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

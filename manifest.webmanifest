@@ -1,0 +1,14 @@
+{
+  "name": "Křížovkář – Tvoje křížovky",
+  "short_name": "Křížovkář",
+  "description": "Křížovky z témat, která tě baví. Funguje i bez internetu.",
+  "lang": "cs",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1219",
+  "theme_color": "#101923",
+  "icons": [
+    {"src":"./icon.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}
