@@ -1,14 +1,16 @@
 {
-  "name": "Křížovkář – Tvoje křížovky",
+  "name": "Křížovkář – klasická křížovka",
   "short_name": "Křížovkář",
-  "description": "Křížovky z témat, která tě baví. Funguje i bez internetu.",
+  "description": "Klasické křížovky s tajenkou, které fungují i offline.",
   "lang": "cs",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0b1219",
-  "theme_color": "#101923",
+  "background_color": "#f6f0e7",
+  "theme_color": "#f6f0e7",
   "icons": [
-    {"src":"./icon.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {"src":"./assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"},
+    {"src":"./assets/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"./assets/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
   ]
 }
