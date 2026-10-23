@@ -1,69 +1,71 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#f6f0e7" />
-  <meta name="description" content="Křížovkář – klasické české křížovky s tajenkou. Hrajte offline na telefonu i počítači." />
-  <title>Křížovkář – klasické křížovky s tajenkou</title>
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="icon" type="image/svg+xml" href="./assets/icon.svg" />
-  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png" />
-  <link rel="stylesheet" href="./css/style.css" />
-  <script defer src="./js/otazky.js"></script>
-  <script defer src="./js/krizovka.js"></script>
-  <script defer src="./js/app.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Křížovkář – novinová křížovka</title>
+  <meta name="theme-color" content="#2a78b8" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="app-shell">
-  <header class="site-header">
-    <div class="brand">
-      <div class="brand-mark" aria-hidden="true"><span>K</span><i></i></div>
-      <div class="brand-name"><span class="eyebrow">SLOVNÍK • ZÁBAVA • TAJENKA</span><h1>Křížovkář<span class="accent">.</span></h1></div>
-    </div>
-    <button id="themeButton" class="icon-button" title="Přepnout světlý / tmavý vzhled" aria-label="Přepnout vzhled"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
-  </header>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Křížovkář 3.0</p>
+        <h1>Novinová křížovka</h1>
+      </div>
+      <button id="resetBtn" class="ghost-btn">Nová hra</button>
+    </header>
 
-  <div class="intro">
-    <div class="intro-copy"><span class="mini-label"><span class="mini-dot"></span> KLASICKÁ ČESKÁ KŘÍŽOVKA</span><h2>Jedna mřížka.<br><em>Spousta odpovědí.</em></h2><p>Lušti vodorovně i svisle. Písmena se propojují a označená políčka odhalí tajenku.</p></div>
-    <div class="intro-deco" aria-hidden="true"><span class="deco-one">K</span><span class="deco-two">Ř</span><span class="deco-three">Í</span><span class="deco-four">Ž</span></div>
-  </div>
-
-  <section class="setup" aria-label="Nastavení křížovky">
-    <div class="setup-input"><label for="topic">TÉMA</label><select id="topic"><option value="all">Všechna témata</option><option value="vcely">Včelaření</option><option value="slepice">Slepice a zahrada</option><option value="dilna">Dílna a stavba</option><option value="vyroba">Výroba a auta</option><option value="hry">Hry a počítače</option><option value="vedomosti">Všeobecné znalosti</option></select></div>
-    <div class="setup-input"><label for="level">OBTÍŽNOST</label><select id="level"><option value="easy">Lehká</option><option value="medium">Střední</option><option value="hard">Těžká</option></select></div>
-    <button class="btn btn-primary" id="newButton"><span class="plus">＋</span> Nová křížovka</button>
-  </section>
-
-  <div class="stats" role="status" aria-live="polite">
-    <div><span class="stats-label">VYPLNĚNÁ SLOVA</span><strong id="statWords">0 / 0</strong></div>
-    <div class="stat-divider"></div>
-    <div><span class="stats-label">VYPLNĚNÁ POLÍČKA</span><strong id="statCells">0 %</strong></div>
-    <div class="stat-divider"></div>
-    <div><span class="stats-label">NÁPOVĚDY</span><strong id="statHints">0</strong></div>
-    <div class="progress-track"><span id="progressBar"></span></div>
-  </div>
-
-  <main class="game">
-    <section class="puzzle-panel" aria-labelledby="puzzleHeading">
-      <div class="panel-top"><div><span class="eyebrow">TVÁ KŘÍŽOVKA</span><h3 id="puzzleHeading">Mřížka</h3></div><div class="word-count" id="wordCount">—</div></div>
-      <p class="puzzle-help">Klepni na políčko nebo na otázku. Druhé klepnutí do stejného políčka změní směr.</p>
-      <div class="crossword-holder" id="gridHolder"><div class="crossword" id="crossword" role="group" aria-label="Mřížka křížovky"></div></div>
-      <div class="legend"><span><i class="swatch swatch-focus"></i> Vybrané slovo</span><span><i class="swatch swatch-secret"></i> Tajenka</span><span><i class="swatch swatch-done"></i> Správně</span></div>
-      <div class="current-clue" id="currentClue" aria-live="polite"><div class="clue-marker">→</div><div><small>AKTUÁLNÍ OTÁZKA</small><strong>Vyber slovo v mřížce</strong></div></div>
-      <div class="tools"><button id="checkButton" class="btn btn-secondary">Zkontrolovat</button><button id="hintButton" class="btn btn-secondary">Napovědět písmeno</button><button id="eraseButton" class="btn btn-soft">Smazat slovo</button></div>
-      <div id="message" class="message" aria-live="polite"></div>
+    <section class="intro-card">
+      <p>
+        Styl jako v novinách: nápovědy jsou <strong>přímo v mřížce</strong>.
+        Klepni na bílé políčko, vyplň písmeno a aplikace zvýrazní celé heslo.
+      </p>
+      <div class="legend">
+        <span><i class="legend-box clue"></i> nápověda</span>
+        <span><i class="legend-box answer"></i> písmeno</span>
+        <span><i class="legend-box secret"></i> tajenka</span>
+      </div>
     </section>
-    <aside class="questions-panel" aria-label="Otázky ke křížovce">
-      <div class="panel-top"><div><span class="eyebrow">NÁPOVĚDY KE SLOVŮM</span><h3>Otázky</h3></div><span class="questions-icon" aria-hidden="true">?</span></div>
-      <div class="tabs" role="tablist" aria-label="Směr slov"><button id="tabAcross" role="tab" aria-selected="true" class="tab active" data-dir="across">→ Vodorovně <span id="acrossCount"></span></button><button id="tabDown" role="tab" aria-selected="false" class="tab" data-dir="down">↓ Svisle <span id="downCount"></span></button></div>
-      <div id="clueList" class="clue-list" role="tabpanel"></div>
-      <p class="question-note">Kliknutím na otázku vybereš celé slovo v mřížce.</p>
-    </aside>
-  </main>
 
-  <section class="secret-panel" aria-label="Tajenka"><div class="secret-head"><div class="secret-icon">✧</div><div><span class="eyebrow">SKRYTÁ ODPOVĚĎ</span><h3>Tajenka</h3><p>Žlutá očíslovaná políčka prozradí písmena po vyřešení slov.</p></div></div><div class="secret-letters" id="secretLetters"></div><p class="secret-status" id="secretStatus">Lušti dál a odemkni tajenku.</p></section>
-  <footer><span>Vyrobeno pro radost z luštění · Křížovkář 2.0</span><details class="backup"><summary>Uložené hry a záloha</summary><div class="backup-actions"><button id="exportButton" class="btn btn-soft">Stáhnout zálohu</button><button id="importButton" class="btn btn-soft">Obnovit zálohu</button><input id="importFile" accept=".json,application/json" type="file" hidden /></div><p>Rozehraná křížovka se ukládá automaticky do tohoto prohlížeče. Záloha funguje s verzí 2.0.</p></details></footer>
-</div>
+    <main>
+      <section class="board-card">
+        <div class="toolbar">
+          <button id="toggleDirBtn" class="ghost-btn">Směr: <span id="dirLabel">→</span></button>
+          <button id="checkBtn" class="ghost-btn">Zkontrolovat</button>
+          <button id="clearBtn" class="ghost-btn">Vymazat</button>
+        </div>
+        <div id="crossword" class="crossword" aria-label="Křížovka"></div>
+      </section>
+
+      <section class="info-card">
+        <div class="current-clue-box">
+          <p class="section-label">Aktuální nápověda</p>
+          <div id="currentClue" class="current-clue">Klepni na políčko v křížovce.</div>
+        </div>
+
+        <div class="secret-box">
+          <p class="section-label">Tajenka</p>
+          <div id="secretAnswer" class="secret-answer"></div>
+          <small>Tajenka se skládá z modře zvýrazněných políček.</small>
+        </div>
+
+        <div class="help-box">
+          <p class="section-label">Jak se to ovládá</p>
+          <ul>
+            <li>Opakovaným klepnutím na políčko přepneš směr hesla.</li>
+            <li>Backspace smaže písmeno a vrátí se o pole zpět.</li>
+            <li>Rozehraná hra se ukládá automaticky.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
